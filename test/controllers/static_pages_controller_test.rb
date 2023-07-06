@@ -18,7 +18,7 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
     # リクエストに対するレスポンスは[成功]か
     assert_response :success
     # titleというタグが存在するか
-    assert_select "title", "Home | #{@base_title}"
+    assert_select "title", "#{@base_title}"
   end
 
   test "should get help" do
