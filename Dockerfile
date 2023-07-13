@@ -10,4 +10,4 @@ COPY Gemfile.lock /app/Gemfile.lock
 RUN bundle install
 
 #rails server -b 0.0.0.0 で コンテナ起動時に、docker 内の全ての IP アドレスに結びつけて、サーバーを立ち上げる
-CMD ["rails", "server", "-b", "0.0.0.0"]
+# CMD ["rails", "server", "-b", "0.0.0.0"]
