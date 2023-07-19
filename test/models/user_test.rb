@@ -22,4 +22,16 @@ class UserTest < ActiveSupport::TestCase
     @user.email = "    "
     assert_not @user.valid?
   end
+
+  # nameが51文字以上はfalse
+  test "name should not be too long" do
+    @user.name = "a" * 51
+    assert_not @user.valid?
+  end
+
+  # emailが256文字以上はfalse
+  test "email should not be too long" do
+    @user.name = "a" * 247 + "@fifa.com"
+    assert_not @user.valid?
+  end
 end
