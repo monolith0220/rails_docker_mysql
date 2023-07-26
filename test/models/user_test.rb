@@ -57,18 +57,34 @@ class UserTest < ActiveSupport::TestCase
 
   # 重複するメールアドレス拒否のテスト
   test "email addresses should be unique" do
+    # 同じ属性を持つオブジェクトを複製
     duplicate_user = @user.dup
-    # 大文字を区別しない
+    # 大文字に変換した値をセット
     duplicate_user.email = @user.email.upcase
+    # データベースに保存
     @user.save
     assert_not duplicate_user.valid?
   end
 
   # メールアドレスを小文字化するテスト
   test "email addresses should be saved as lower-case" do
+    # 大文字と小文字を混在した例
     mixed_case_email = "Foo@ExAMPle.CoM"
     @user.email = mixed_case_email
     @user.save
     assert_equal mixed_case_email.downcase, @user.reload.email
   end
+
+  # パスワードに空白6個を代入 パスワードが存在しているかテスト
+  test "password should be present (nonblank)" do
+    @user.password = @user.password_confirmation = " " * 6
+    assert_not @user.valid?
+  end
+
+  # パスワードに5文字を代入 パスワードの最小文字数をテスト
+  test "password should have a minimum length" do
+    @user.password = @user.password_confirmation = "a" * 5
+    assert_not @user.valid?
+  end
+
 end
